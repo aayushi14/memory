@@ -59,7 +59,7 @@ class Memory extends React.Component {
           } else {
             this.setState({opentile2: opentile2});
             if (queArray[opentile1] != queArray[opentile2]) {
-              setTimeout(this.diffTiles(queArray, opentile1, opentile2).bind(this), 2000);
+              setTimeout(() => this.diffTiles(queArray, opentile1, opentile2), 1000);
             }
           }
         }
@@ -83,19 +83,9 @@ class Memory extends React.Component {
         }
       }
 
-
-/*  componentDidUpdate() {
-    if(opentile1 != this.state.opentile2) {
-
-    } else if (opentile2 != this.state.opentile2) {
-      this. = c3.load({data: this.props.data});
-      setTimeout(this.diffTiles(queArray, opentile1, opentile2).bind(this), 2000);
-    }
-  }*/
-
   render() {
     return (
-      <div className="row">
+      <div className="row main">
         <div className="row grid">
           {this.state.queArray.map((letter, i) => <div className="tile"
           onClick={() => {this.showTile(i)}} key={"letter" + i} id={i}>
@@ -103,7 +93,7 @@ class Memory extends React.Component {
         </div>
         <div className="col-7">
           <div className="row">
-            <p><b>Number of Clicks: </b></p>
+            <p>Number of Clicks:</p>
             <p>{this.state.totalClicks}</p>
           </div>
           <div className="row">
