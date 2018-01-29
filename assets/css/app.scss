@@ -2,10 +2,11 @@
 
 @import "bootstrap";
 
-.side { padding: 4ex; text-align: center; }
 h1 {
   text-align: center;
   color: #00C5D5;
+  font-family: Georgia;
+  text-decoration: underline;
 }
 
 .grid {
@@ -16,13 +17,13 @@ h1 {
 }
 
 .tile {
-  padding: 20px;
+  padding: 10px;
   margin: 5px;
   width: 80px;
   border-spacing: 5px;
-  background-color: #f5b3c4;
+  background-color: #f9cddb;
   color: #00C5D5;
-  font-size: 20px;
+  font-size: 30px;
   text-align: center;
   cursor: pointer;
 }
@@ -32,18 +33,20 @@ p {
   margin: 1px;
   color: #00C5D5;
   font-size: 20px;
+  font-family: Georgia;
 }
 
 button {
-    background-color: #f5b3c4;
+    background-color: #f9cddb;
     padding: 10px 30px;
     margin: 1px 1px;
-    width: 250px;
-    font-size: 16px;
+    width: 220px;
+    font-size: 20px;
+    font-family: Georgia;
     color: #00C5D5;
     cursor: pointer;
     }
 
 .tile:hover, button:hover {
-    background-color: #ef8fa8;
+    background-color: #f5b3c4;
   }
