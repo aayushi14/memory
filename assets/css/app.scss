@@ -3,4 +3,47 @@
 @import "bootstrap";
 
 .side { padding: 4ex; text-align: center; }
-h1 { text-align: center; }
+h1 {
+  text-align: center;
+  color: #00C5D5;
+}
+
+.grid {
+  padding: 5px;
+  margin: auto;
+  width: 380px;
+  border-spacing: 5px;
+}
+
+.tile {
+  padding: 20px;
+  margin: 5px;
+  width: 80px;
+  border-spacing: 5px;
+  background-color: #f5b3c4;
+  color: #00C5D5;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+p {
+  padding: 2px;
+  margin: 1px;
+  color: #00C5D5;
+  font-size: 20px;
+}
+
+button {
+    background-color: #f5b3c4;
+    padding: 10px 30px;
+    margin: 1px 1px;
+    width: 250px;
+    font-size: 16px;
+    color: #00C5D5;
+    cursor: pointer;
+    }
+
+.tile:hover, button:hover {
+    background-color: #ef8fa8;
+  }
