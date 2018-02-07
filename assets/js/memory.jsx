@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 export default function run_memory(root) {
-  let totalClicks = 0, opentile1: 15, opentile2: 15;
+  let totalClicks = 0, opentile1: 16, opentile2: 16;
   ReactDOM.render(<Memory array = "" />, root);
 }
 
@@ -12,8 +12,9 @@ class Memory extends React.Component {
       super(props);
       this.state = {queArray: ['?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?'],
       totalClicks: 0,
-      opentile1: 15,
-      opentile2: 15,
+      opentile1: 16,
+      opentile2: 16,
+      disableClick: false,
       loadedArray: this.shuffleArray()}
     }
 
@@ -29,13 +30,10 @@ class Memory extends React.Component {
       return arr;
     }
 
-    diffTiles(queArray, id1, id2) {
-      let opentile1 = id1;
-      let opentile2 = id2;
-      let arr = queArray;
+    diffTiles(arr, opentile1, opentile2) {
       arr[opentile1] = '?';
       arr[opentile2] = '?';
-      this.setState({queArray: arr, opentile1:15, opentile2:15});
+      this.setState({queArray: arr, opentile1:16, opentile2:16, disableClick: false});
     }
 
     showTile(id) {
@@ -49,47 +47,50 @@ class Memory extends React.Component {
       arr[id] = temp;
       this.setState({queArray: arr});
 
-      if (opentile1 == 15 && opentile2 == 15) {
+      if (opentile1 == 16 && opentile2 == 16) {
         this.setState({opentile1: id, queArray: arr});
-      } else if (opentile1 != 15 && opentile2 == 15 && id!= opentile1) {
+      } else if (opentile1 != 16 && opentile2 == 16 && id != opentile1) {
         opentile2 = id;
           if (queArray[opentile1] == queArray[opentile2]) {
             this.setState({opentile2: opentile2, queArray : queArray});
-            this.setState({opentile1:15, opentile2:15});
+            this.setState({opentile1:16, opentile2:16});
           } else {
             this.setState({opentile2: opentile2});
             if (queArray[opentile1] != queArray[opentile2]) {
+              this.setState({disableClick: true});
               setTimeout(() => this.diffTiles(queArray, opentile1, opentile2), 1000);
             }
           }
         }
 
-        let total = this.state.totalClicks;
-        this.setState({totalClicks: total + 1});
-      }
+      let total = this.state.totalClicks;
+      this.setState({totalClicks: total + 1});
+    }
 
-      hideTiles(n) {
+      resetState() {
         let queArray = this.state.queArray;
         let opentile1 = this.state.opentile1;
         let opentile2 = this.state.opentile2;
         let totalClicks = this.state.totalClicks;
-        let loadedArray = this.state.loadedArray;
         this.setState({queArray: ['?','?','?','?','?','?','?','?','?','?','?','?','?','?','?','?']});
         this.setState({totalClicks: 0});
-        this.setState({opentile1: 15});
-        this.setState({opentile2: 15});
-        if (n == 2) {
-          this.setState({loadedArray: this.shuffleArray()});
-        }
+        this.setState({opentile1: 16});
+        this.setState({opentile2: 16});
+      }
+
+      newGame() {
+        let loadedArray = this.state.loadedArray;
+        this.setState({loadedArray: this.shuffleArray()});
       }
 
   render() {
     return (
       <div className="row main">
         <div className="row grid">
-          {this.state.queArray.map((letter, i) => <div className="tile"
-          onClick={() => {this.showTile(i)}} key={"letter" + i} id={i}>
-          <b>{letter}</b></div>)}
+          {this.state.queArray.map((letter, i) => <button className="tile"
+          onClick={() => {this.showTile(i)}} key={"letter" + i} id={i}
+          disabled={this.state.disableClick}>
+          <b>{letter}</b></button>)}
         </div>
         <div className="col-7">
           <div className="row">
@@ -97,10 +98,10 @@ class Memory extends React.Component {
             <p>{this.state.totalClicks}</p>
           </div>
           <div className="row">
-            <button className="button" onClick={() => this.hideTiles(1)}>Replay Game</button>
+            <button className="button" onClick={() => { this.resetState(); this.resetGame(); }}>Reset Game</button>
           </div>
           <div className="row">
-            <button className="button" onClick={() => this.hideTiles(2)}>New Game</button>
+            <button className="button" onClick={() => { this.resetState(); this.newGame(); }}>New Game</button>
           </div>
         </div>
       </div>
