@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 export default function run_memory(root) {
   let totalClicks = 0, opentile1: 16, opentile2: 16;
-  ReactDOM.render(<Memory array = "" />, root);
+  ReactDOM.render(<Memory />, root);
 }
 
 
@@ -14,7 +14,7 @@ class Memory extends React.Component {
       totalClicks: 0,
       opentile1: 16,
       opentile2: 16,
-      unmatchedCount: 8,
+      score: 0,
       disableClick: false,
       loadedArray: this.shuffleArray()}
     }
@@ -42,31 +42,29 @@ class Memory extends React.Component {
       let opentile1 = this.state.opentile1;
       let opentile2 = this.state.opentile2;
       let ansArray = this.state.loadedArray;
-      let unmatch = this.state.unmatchedCount;
-      let temp1, temp2;
+      let score = this.state.score;
+      let total = this.state.totalClicks;
+
       let temp = ansArray[id];
-      let arr = queArray;
-      arr[id] = temp;
-      this.setState({queArray: arr});
+      queArray[id] = temp;
+      this.setState({queArray: queArray});
 
       if (opentile1 == 16 && opentile2 == 16) {
-        this.setState({opentile1: id, queArray: arr});
+	      console.log(queArray[id]);
+        this.setState({opentile1: id, queArray: queArray, totalClicks: total + 1});
       } else if (opentile1 != 16 && opentile2 == 16 && id != opentile1) {
         opentile2 = id;
           if (queArray[opentile1] == queArray[opentile2]) {
             this.setState({opentile2: opentile2, queArray : queArray});
-            this.setState({opentile1:16, opentile2:16, unmatchedCount: unmatch - 1});
+            this.setState({opentile1:16, opentile2:16, score: score + 10, totalClicks: total + 1});
           } else {
             this.setState({opentile2: opentile2});
             if (queArray[opentile1] != queArray[opentile2]) {
-              this.setState({disableClick: true});
+              this.setState({disableClick: true, score: score - 5, totalClicks: total + 1});
               setTimeout(() => this.diffTiles(queArray, opentile1, opentile2), 1000);
             }
           }
         }
-
-      let total = this.state.totalClicks;
-      this.setState({totalClicks: total + 1});
     }
 
     resetState() {
@@ -86,7 +84,6 @@ class Memory extends React.Component {
     }
 
   render() {
-    let score = (8 - this.state.unmatchedCount) * 20 + (48 - this.state.totalClicks) * 10;
     return (
       <div className="row main">
         <div className="row grid">
@@ -102,7 +99,7 @@ class Memory extends React.Component {
           </div>
           <div className="row">
             <p>Score:</p>
-            <p>{score}</p>
+            <p>{this.state.score}/80</p>
           </div>
           <div className="row">
             <button className="button" onClick={() => { this.resetState(); this.resetGame(); }}>Reset Game</button>
