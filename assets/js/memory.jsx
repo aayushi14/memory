@@ -14,6 +14,7 @@ class Memory extends React.Component {
       totalClicks: 0,
       opentile1: 16,
       opentile2: 16,
+      matchedIndex: [],
       score: 0,
       disableClick: false,
       loadedArray: this.shuffleArray()}
@@ -41,6 +42,7 @@ class Memory extends React.Component {
       let queArray = this.state.queArray;
       let opentile1 = this.state.opentile1;
       let opentile2 = this.state.opentile2;
+      let matchedIndex = this.state.matchedIndex;
       let ansArray = this.state.loadedArray;
       let score = this.state.score;
       let total = this.state.totalClicks;
@@ -49,14 +51,16 @@ class Memory extends React.Component {
       queArray[id] = temp;
       this.setState({queArray: queArray});
 
-      if (opentile1 == 16 && opentile2 == 16) {
-	      console.log(queArray[id]);
-        this.setState({opentile1: id, queArray: queArray, totalClicks: total + 1});
-      } else if (opentile1 != 16 && opentile2 == 16 && id != opentile1) {
+      //&& id != index1 && id != index2
+      if (opentile1 == 16 && opentile2 == 16 && !matchedIndex.includes(id)) {
+        this.setState({queArray: queArray, opentile1: id, totalClicks: total + 1});
+      } else if (opentile1 != 16 && opentile2 == 16 && id != opentile1 && !matchedIndex.includes(id)) {
         opentile2 = id;
           if (queArray[opentile1] == queArray[opentile2]) {
-            this.setState({opentile2: opentile2, queArray : queArray});
-            this.setState({opentile1:16, opentile2:16, score: score + 10, totalClicks: total + 1});
+            matchedIndex.push(opentile1);
+            matchedIndex.push(opentile2);
+            this.setState({opentile2: opentile2, matchedIndex: matchedIndex});
+            this.setState({queArray : queArray, opentile1:16, opentile2:16, score: score + 10, totalClicks: total + 1});
           } else {
             this.setState({opentile2: opentile2});
             if (queArray[opentile1] != queArray[opentile2]) {
