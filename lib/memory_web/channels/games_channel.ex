@@ -5,8 +5,11 @@ defmodule MemoryWeb.GamesChannel do
 
   def join("games:" <> name, payload, socket) do
     if authorized?(payload) do
-      game = Memory.GameBackup.load(name) || Game.new()
-      newState = Game.client_view(game)
+      newState = if(Memory.GameBackup.load(name)) do
+        Memory.GameBackup.load(name)
+        else
+        game = Game.client_view(Game.new())
+      end
       socket = socket
       |> assign(:game, newState)
       |> assign(:name, name)
@@ -18,8 +21,8 @@ defmodule MemoryWeb.GamesChannel do
 
   def handle_in("doReset", %{}, socket) do
     game = Game.doReset(socket.assigns[:game])
-    Memory.GameBackup.save(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
+    Memory.GameBackup.save(socket.assigns[:name], game)
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
@@ -27,7 +30,7 @@ defmodule MemoryWeb.GamesChannel do
     game = Game.loadNew(socket.assigns[:game])
     Memory.GameBackup.save(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
-    {:reply, {:ok, %{"game" => Game.client_view(game)}}, socket}
+    {:reply, {:ok, %{"game" => game}}, socket}
   end
 
   def handle_in("showTile", %{"opentile" => id}, socket) do

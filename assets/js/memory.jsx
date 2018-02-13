@@ -82,7 +82,7 @@ class Memory extends React.Component {
                   <button className="button" onClick={() => {this.resetState();}}>Reset Game</button>
                 </div>
                 <div className="col-sm-6">
-                  <button className="button" onClick={() => {this.newGame();}}>New Game</button>
+                  <button className="button" onClick={() => {this.resetState(); this.newGame();}}>New Game</button>
                 </div>
               </div>
             </div>
