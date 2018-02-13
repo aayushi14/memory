@@ -1,0 +1,13 @@
+<h1>Memory Game</h1>
+
+<div class="row">
+  <div class="col">
+    <p class="grid">Player Name: <%= @game %></p>
+    <script>
+      window.gameName = "<%= @game %>";
+    </script>
+    <div id="root">
+      <p>React app not loaded...</p>
+    </div>
+  </div>
+</div>

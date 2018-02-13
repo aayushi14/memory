@@ -2,5 +2,53 @@
 
 @import "bootstrap";
 
-.side { padding: 4ex; text-align: center; }
-h1 { text-align: center; }
+body {
+  background-image: url("/images/bg.jpg");
+  background-size: 100%;
+}
+
+h1 {
+  text-align: center;
+  color: #00C5D5;
+  font-family: Georgia;
+  text-decoration: underline;
+}
+
+.grid {
+  padding: 5px;
+  margin: auto;
+  width: 380px;
+  border-spacing: 5px;
+}
+
+.tile {
+  padding: 10px;
+  margin: 5px;
+  width: 80px;
+  border-spacing: 5px;
+  border: none;
+  font-size: 30px;
+}
+
+p {
+  padding: 2px;
+  margin: 1px;
+  color: #00C5D5;
+  font-size: 20px;
+  font-family: Georgia;
+}
+
+button, .submit {
+    background-color: #f9cddb;
+    padding: 10px 30px;
+    margin: 1px 1px;
+    width: 220px;
+    font-size: 20px;
+    font-family: Georgia;
+    color: #00C5D5;
+    cursor: pointer;
+    }
+
+.tile:hover, button:hover, .submit:hover {
+    background-color: #f5b3c4;
+  }
