@@ -1,7 +1,10 @@
 /* This file is for your main application css. */
 
 @import "bootstrap";
-
+body {
+  background-image: url("/images/bg.jpg");
+  background-size: 100%;
+}
 h1 {
   text-align: center;
   color: #00C5D5;
@@ -27,7 +30,7 @@ h1 {
 
 p {
   padding: 2px;
-  margin: 1px;
+  margin: 1px 1px;
   color: #00C5D5;
   font-size: 20px;
   font-family: Georgia;

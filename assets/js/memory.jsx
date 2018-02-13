@@ -51,7 +51,6 @@ class Memory extends React.Component {
       queArray[id] = temp;
       this.setState({queArray: queArray});
 
-      //&& id != index1 && id != index2
       if (opentile1 == 16 && opentile2 == 16 && !matchedIndex.includes(id)) {
         this.setState({queArray: queArray, opentile1: id, totalClicks: total + 1});
       } else if (opentile1 != 16 && opentile2 == 16 && id != opentile1 && !matchedIndex.includes(id)) {
@@ -89,27 +88,31 @@ class Memory extends React.Component {
 
   render() {
     return (
-      <div className="row main">
-        <div className="row grid">
-          {this.state.queArray.map((letter, i) => <button className="tile"
-          onClick={() => {this.showTile(i)}} key={"letter" + i} id={i}
-          disabled={this.state.disableClick}>
-          <b>{letter}</b></button>)}
-        </div>
-        <div className="col-7">
-          <div className="row">
-            <p>Number of Clicks:</p>
-            <p>{this.state.totalClicks}</p>
-          </div>
-          <div className="row">
-            <p>Score:</p>
-            <p>{this.state.score}/80</p>
-          </div>
-          <div className="row">
-            <button className="button" onClick={() => { this.resetState(); this.resetGame(); }}>Reset Game</button>
-          </div>
-          <div className="row">
-            <button className="button" onClick={() => { this.resetState(); this.newGame(); }}>New Game</button>
+      <div className="container main">
+        <div className="row justify-content-center">
+          <div className="col-sm-6">
+            <div className="row grid">
+              {this.state.queArray.map((letter, i) => <button className="tile"
+              onClick={() => {this.showTile(i)}} key={"letter" + i} id={i}
+              disabled={this.state.disableClick}>
+              <b>{letter}</b></button>)}
+            </div>
+            <div className="row justify-content-center">
+              <div className="col-sm-6">
+                <p>Number of Clicks: {this.state.totalClicks}</p>
+              </div>
+              <div className="col-sm-6">
+                <p>Score: {this.state.score}/80</p>
+              </div>
+            </div>
+            <div className="row justify-content-center">
+              <div className="col-sm-6">
+                <button className="button" onClick={() => { this.resetState(); this.resetGame(); }}>Reset Game</button>
+              </div>
+              <div className="col-sm-6">
+                <button className="button" onClick={() => { this.resetState(); this.newGame(); }}>New Game</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
