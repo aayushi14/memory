@@ -37,6 +37,7 @@ defmodule Memory.Game do
   def loadNew(game) do
     loadedArray = game.loadedArray
     loadedArray = shuffleArray()
+    %{game | loadedArray: loadedArray}
   end
 
   def showTile(game, id) do
